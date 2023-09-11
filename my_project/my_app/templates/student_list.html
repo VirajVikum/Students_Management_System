@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <br>
+<h1><center>All Students</center></h1>
+<br><br>
+<div style="text-align: center; margin-top: 20px; margin-left: 40px;margin-right: 40px;">
+
+<table class="table table-striped table-hover table-bordered">
+
+   {% for student in student_list %}
+   <tr>
+    <td align="left">
+   
+        <a class="nav-link" href="{% url 'show-student' student.id %}">{{ student }}</a>
+    </td>
+
+    <td >
+       
+        <a href="{% url 'update-student' student.id %}"class="btn btn-outline-secondary btn-sm"> Update </a> 
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <a href="{% url 'delete-student' student.id %}" class="btn btn-outline-danger btn-sm"> Delete </a> 
+       
+    </td>
+            
+    </tr>
+   {% endfor %}
+</table>
+    
+</div>
+
+{% endblock %}
+

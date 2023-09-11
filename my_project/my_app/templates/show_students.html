@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<div style="text-align: left; margin-top: 20px; margin-left: 40px;">
+
+    <ul>
+        <h1>{{ students }}</h1><br>
+        
+        <li> Index NO :   <i> &nbsp;{{ students.index }}</i></li><br>
+        <li> Email Address :  &nbsp; <i><a href="">{{ students.email }}</a></i></li><br>
+        <li> Department :  &nbsp; <i>{{ students.department }}</i></li><br>
+
+    </ul>
+</div>
+{% endblock %}

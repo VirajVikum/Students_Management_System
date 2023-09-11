@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<center>
+    {% if searched %}
+    <h1>You searched for {{searched}}</h1><br>
+        {% for student in student %}
+        <a href="{% url 'show-student' student.id %}"> {{student}} </a> <br>
+        {% endfor %}
+
+    {% else %}
+    <h1>You forgot to enter a name .....</h1>
+    
+    {% endif %}
+</center>
+
+{% endblock %}

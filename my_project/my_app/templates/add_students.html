@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <br>
+<center><h1>Add Students to DataBase</h1>
+    <div style="text-align: center; margin-top: 20px; margin-left: 400px;margin-right: 400px;">
+<br><br>
+    {% if submitted %}
+        The student was Sumitted Successfully...!!!
+
+    {% else %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="submit" class=" btn btn-secondary">
+
+        </form>
+    {% endif %} 
+</div>   
+</center>
+
+{% endblock %}

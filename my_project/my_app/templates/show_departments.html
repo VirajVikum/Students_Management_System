@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block content %}
+<br>
+<center><h2>All Departments</h2></center>
+<br><br><br>
+<ul>
+{% for deps in departments %}
+<h4>{{ deps }}</h4>
+<ul>
+    <li>Department Code :<i> &emsp;{{deps.d_code}} </i></li>
+    <li>Head of the Department :<i> &emsp;{{deps.hod}} </i></li>
+    <br>
+</ul>
+
+{% endfor %}
+</ul>
+{% endblock %}
