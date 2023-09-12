@@ -1,228 +1,58 @@
+======
+Django
+======
 
-# django-mdeditor
+Django is a high-level Python web framework that encourages rapid development
+and clean, pragmatic design. Thanks for checking it out.
 
+All documentation is in the "``docs``" directory and online at
+https://docs.djangoproject.com/en/stable/. If you're just getting started,
+here's how we recommend you read the docs:
 
-[![ENV](https://img.shields.io/badge/release-v0.1.20-blue.svg)](https://github.com/pylixm/django-mdeditor)
-[![ENV](https://img.shields.io/badge/中文-v0.1.20-blue.svg)](./README_CN.md)
-[![ENV](https://img.shields.io/badge/Gitter-v0.1.20-blue.svg)](https://gitter.im/django-mdeditor/Lobby)
-[![ENV](https://img.shields.io/badge/python-2.x/3.x-green.svg)](https://github.com/pylixm/django-mdeditor)
-[![ENV](https://img.shields.io/badge/django-1.7+-green.svg)](https://github.com/pylixm/django-mdeditor)
-[![LICENSE](https://img.shields.io/badge/license-GPL3.0-green.svg)](https://github.com/pylixm/django-mdeditor/master/LICENSE.txt)
+* First, read ``docs/intro/install.txt`` for instructions on installing Django.
 
-![](./django_and_editor.png)
+* Next, work through the tutorials in order (``docs/intro/tutorial01.txt``,
+  ``docs/intro/tutorial02.txt``, etc.).
 
-**Django-mdeditor** is Markdown Editor plugin application for [django](djangoproject.com) base on [Editor.md](https://github.com/pandao/editor.md).
+* If you want to set up an actual deployment server, read
+  ``docs/howto/deployment/index.txt`` for instructions.
 
-**Django-mdeditor** was inspired by great [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor).
+* You'll probably want to read through the topical guides (in ``docs/topics``)
+  next; from there you can jump to the HOWTOs (in ``docs/howto``) for specific
+  problems, and check out the reference (``docs/ref``) for gory details.
 
-**Note:** 
+* See ``docs/README`` for instructions on building an HTML version of the docs.
 
-- For Markdown page rendering issues, backend rendering is recommended. Because `Editor.md` has not been updated for a long time, some bugs and compatibility issues need to be debugged. Of course, front-end students can choose.
-- Regarding the `Jquery` conflict, it cannot be deleted because it is required by the admin backend. It is recommended to separate the editing page on a single page or a full screen directly, using its own static file to distinguish it from other pages.
+Docs are updated rigorously. If you find any problems in the docs, or think
+they should be clarified in any way, please take 30 seconds to fill out a
+ticket here: https://code.djangoproject.com/newticket
 
-## Features
+To get more help:
 
-- Almost Editor.md features 
-    - Support Standard Markdown / CommonMark and GFM (GitHub Flavored Markdown);
-    - Full-featured: Real-time Preview, Image (cross-domain) upload, Preformatted text/Code blocks/Tables insert, Search replace, Themes, Multi-languages;
-    - Markdown Extras : Support ToC (Table of Contents), Emoji;
-    - Support TeX (LaTeX expressions, Based on KaTeX), Flowchart and Sequence Diagram of Markdown extended syntax;
-- Can constom Editor.md toolbar 
-- The MDTextField field is provided for the model and can be displayed directly in the django admin.
-- The MDTextFormField is provided for the Form and ModelForm.
-- The MDEditorWidget is provided for the Admin custom widget.
+* Join the ``#django`` channel on ``irc.libera.chat``. Lots of helpful people
+  hang out there. `Webchat is available <https://web.libera.chat/#django>`_.
 
+* Join the django-users mailing list, or read the archives, at
+  https://groups.google.com/group/django-users.
 
-## Quick start
+* Join the `Django Discord community <https://discord.gg/xcRH6mN4fa>`_.
 
-- Installation.
-```bash
-    pipenv install django-mdeditor
-    # or
-    pip install django-mdeditor
-```
+* Join the community on the `Django Forum <https://forum.djangoproject.com/>`_.
 
-- Add `mdeditor` to your INSTALLED_APPS setting like this:
-```python
-    INSTALLED_APPS = [
-        ...
-        'mdeditor',
-    ]
-```
+To contribute to Django:
 
-- add frame settings for django3.0+ like this：
+* Check out https://docs.djangoproject.com/en/dev/internals/contributing/ for
+  information about getting involved.
 
-```python
-X_FRAME_OPTIONS = 'SAMEORIGIN' 
-```
+To run Django's test suite:
 
-- Add 'media' url to your settings like this:
-```python
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-MEDIA_URL = '/media/'
+* Follow the instructions in the "Unit tests" section of
+  ``docs/internals/contributing/writing-code/unit-tests.txt``, published online at
+  https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/#running-the-unit-tests
 
-```
-Make folder `uploads/editor` in you project for media files.  
+Supporting the Development of Django
+====================================
 
-- Add url to your urls like this:
-```python
-from django.conf.urls import url, include
-from django.conf.urls.static import static
-from django.conf import settings
-...
+Django's development depends on your contributions.
 
-urlpatterns = [
-    ...
-    url(r'mdeditor/', include('mdeditor.urls'))
-]
-
-if settings.DEBUG:
-    # static files (images, css, javascript, etc.)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-```
-
-- Write your models like this:
-```python
-from django.db import models
-from mdeditor.fields import MDTextField
-
-class ExampleModel(models.Model):
-    name = models.CharField(max_length=10)
-    content = MDTextField()
-```
-
-- Register your model in `admin.py`
-
-- Run `python manage.py makemigrations` and `python manage.py migrate` to create your models.
-
-- Login Admin ,you can see a markdown editor text field like this:
-
-![](/screenshot/admin-example.png)
-
-
-## Usage
-
-### Edit fields in the model using Markdown
-
-Using Markdown to edit the fields in the model, we simply replace the `TextField` of the model with` MDTextField`.
-
-```python
-from django.db import models
-from mdeditor.fields import MDTextField
-
-class ExampleModel (models.Model):
-    name = models.CharField (max_length = 10)
-    content = MDTextField ()
-```
-
-Admin in the background, will automatically display markdown edit rich text.
-
-Used in front-end template, you can use like this:
-```python
-{% load staticfiles %}
-<! DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta http-equiv = "Content-Type" content = "text / html; charset = utf-8" />
-
-    </ head>
-    <body>
-        <form method = "post" action = "./">
-            {% csrf_token %}
-            {{ form.media }}
-            {{ form.as_p }}
-            <p> <input type = "submit" value = "post"> </ p>
-        </ form>
-    </ body>
-</ html>
-
-```
-
-### Edit fields in the Form using markdown
-
-Use markdown to edit fields in the Form, use `MDTextFormField` instead of` forms.CharField`, as follows:
-```python
-from mdeditor.fields import MDTextFormField
-
-class MDEditorForm (forms.Form):
-    name = forms.CharField ()
-    content = MDTextFormField ()
-```
-
-`ModelForm` can automatically convert the corresponding model field to the form field, which can be used normally:
-```python
-class MDEditorModleForm (forms.ModelForm):
-
-    class Meta:
-        model = ExampleModel
-        fields = '__all__'
-```
-
-### Use the markdown widget in admin
-
-Use the markdown widget in admin like as :
-```python
-from django.contrib import admin
-from django.db import models
-
-# Register your models here.
-from. import models as demo_models
-from mdeditor.widgets import MDEditorWidget
-
-
-class ExampleModelAdmin (admin.ModelAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': MDEditorWidget}
-    }
-
-
-admin.site.register (demo_models.ExampleModel, ExampleModelAdmin)
-```
-### Customize the toolbar
-
-Add the following configuration to `settings`:
-```python
-MDEDITOR_CONFIGS = {
-    'default':{
-        'width': '90% ',  # Custom edit box width
-        'height': 500,  # Custom edit box height
-        'toolbar': ["undo", "redo", "|",
-                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-                    "h1", "h2", "h3", "h5", "h6", "|",
-                    "list-ul", "list-ol", "hr", "|",
-                    "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
-                    "emoji", "html-entities", "pagebreak", "goto-line", "|",
-                    "help", "info",
-                    "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar 
-        'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
-        'image_folder': 'editor',  # image save the folder name
-        'theme': 'default',  # edit box theme, dark / default
-        'preview_theme': 'default',  # Preview area theme, dark / default
-        'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
-        'toolbar_autofixed': True,  # Whether the toolbar capitals
-        'search_replace': True,  # Whether to open the search for replacement
-        'emoji': True,  # whether to open the expression function
-        'tex': True,  # whether to open the tex chart function
-        'flow_chart': True,  # whether to open the flow chart function
-        'sequence': True, # Whether to open the sequence diagram function
-        'watch': True,  # Live preview
-        'lineWrapping': False,  # lineWrapping
-        'lineNumbers': False,  # lineNumbers
-        'language': 'zh'  # zh / en / es 
-    }
-    
-}
-```
-
-## Feedback 
-
-Welcome to use and feedback!
-
-You can create a [issue](https://github.com/pylixm/django-mdeditor/issues) or join in QQ Group. 
-
-![](screenshot/QQ.png)
-
-## Reference
-
-- [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor)
+If you depend on Django, remember to support the Django Software Foundation: https://www.djangoproject.com/fundraising/
